@@ -1073,12 +1073,18 @@ define(requires, function (messagesTpl, recentTpl, conversationTpl, contactTpl, 
 
                                     var html = MM.plugins.messages._renderConversationArea(messages, userId, previousDate);
                                     // Double check we are in the correct conversation window.
-                                    if (location.href.indexOf("#messages/conversation/" + userId) > -1) {
-                                        conversationArea = $(".conversation-area");
-                                        conversationArea.find(".removeMessage").remove();
-                                        conversationArea.append(html);
-                                        conversationArea.scrollTop(conversationArea.prop("scrollHeight"));
+                                    if (location.href.indexOf("#messages/conversation/") > -1) {
+                                    	var userIdUrlAux = location.href.split("/");
+                                    	if(userIdUrlAux.length >0)
+                                    		userIdUrlAux = userIdUrlAux[userIdUrlAux.length - 1];
+                                    	if(userIdUrlAux == userId){
+                                    		conversationArea = $(".conversation-area");
+                                            conversationArea.find(".removeMessage").remove();
+                                            conversationArea.append(html);
+                                            conversationArea.scrollTop(conversationArea.prop("scrollHeight"));
+                                    	}
                                     }
+
                                 }
 
                                 setTimeout(function() {
